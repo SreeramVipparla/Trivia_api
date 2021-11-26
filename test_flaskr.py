@@ -28,7 +28,7 @@ class TriviaAppTestCase(unittest.TestCase):
             self.db.create_all()
 
     def tearDown(self):
- 
+
         pass
 
     def test_categories(self):
@@ -49,8 +49,9 @@ class TriviaAppTestCase(unittest.TestCase):
         self.assertTrue(len(data['questions']))
 
     def test_requesting_beyond_valid_page_404(self):
-        res = self.client().\
-         get('/api/v1.0/questions?page=1000', content_type='application/json')
+        res = self.client(). get(
+            '/api/v1.0/questions?page=1000',
+            content_type='application/json')
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)
@@ -65,7 +66,7 @@ class TriviaAppTestCase(unittest.TestCase):
   #      self.assertEqual(res.status_code, 200)
   #      self.assertEqual(data["success"], True)
   #      self.assertEqual(question, None)
-    
+
    # def test_delete_existing_question(self):
    #     res = self.client().delete('/api/v1.0/questions/2')
    #     data = json.loads(res.data)
@@ -73,7 +74,6 @@ class TriviaAppTestCase(unittest.TestCase):
    #     self.assertEqual(res.status_code, 200)
    #     self.assertTrue(data['success'], True)
 
-    
     def deleting_nonexisting_question_failure(self):
         res = self.client().delete('/questions/4')
         data = json.loads(res.data)
@@ -87,7 +87,7 @@ class TriviaAppTestCase(unittest.TestCase):
                         'answer': 'i am fine',
                         'difficulty': 1,
                         'category': 2
-                       }
+                        }
         res = self.client().post('/api/v1.0/questions', json=new_question)
         data = json.loads(res.data)
 
@@ -99,7 +99,7 @@ class TriviaAppTestCase(unittest.TestCase):
                         'a': 'Heres the answer string',
                         'diff': 1,
                         'cat': 2
-                       }
+                        }
         res = self.client().post('/api/v1.0/questions', json=new_question)
         data = json.loads(res.data)
 
@@ -120,22 +120,32 @@ class TriviaAppTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def searching_for_an_existing_term(self):
-        res = self.client().post\
-            ('/api/v1.0/questions/search', json={"searchTerm": "what"})
+        res = self.client().post(
+            '/api/v1.0/questions/search',
+            json={
+                "searchTerm": "what"})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['total_questions'])
         self.assertTrue(len(data['questions']))
+
     def test_search_question_with_nonexisting_search_term(self):
         """Performs a simulated POST request to '/api/v1.0/questions/search'"""
-        res = self.client().post('/api/v1.0/questions/search', json={"searchTerm":"pppppp"})
+        res = self.client().post(
+            '/api/v1.0/questions/search',
+            json={
+                "searchTerm": "pppppp"})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
+
     def searching_for_missing_term_(self):
-        res = self.client().post('/api/v1.0/questions', json={}, headers=self.admin_headers)
+        res = self.client().post(
+            '/api/v1.0/questions',
+            json={},
+            headers=self.admin_headers)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
@@ -143,23 +153,27 @@ class TriviaAppTestCase(unittest.TestCase):
         self.assertEqual(data["message"], "unprocessable")
 
     def quiz_testing(self):
-        request_body = {"previous_questions": [16, 17], "quiz_category": {"type": "Science", "id": "1"}}
+        request_body = {
+            "previous_questions": [
+                16, 17], "quiz_category": {
+                "type": "Science", "id": "1"}}
         response = self.client().post('/api/v1.0/quizzes', json=request_body)
         data = json.loads(response.data)
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(data['question'])
-    
+
     def test_error_get_random_question_by_category(self):
         """Test for get_random_question_by_category"""
         res = self.client().post('/api/v1.0/quizzes', json={
             'previous_quesitons': [16],
             'quiz_category': {'id': 7}
-            })
+        })
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data['success'], False)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":

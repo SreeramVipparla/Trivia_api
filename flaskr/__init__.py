@@ -7,6 +7,7 @@ from models import db, setup_db, Question, Category
 
 QUESTIONS_PER_PAGE = 10
 
+
 def paginate_questions(request, selection):
     items_limit = request.args.get('limit', 10, type=int)
     selected_page = request.args.get('page', 1, type=int)
@@ -18,6 +19,7 @@ def paginate_questions(request, selection):
     current_questions = [question.format() for question in questions]
 
     return current_questions
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -47,10 +49,8 @@ def create_app(test_config=None):
         if (len(categories_dict) == 0):
             abort(404)
 
-        return jsonify({
-         'success': True,
-         "categories": {category.id: category.type for category in categories}
-          })
+        return jsonify({'success': True, "categories": {
+                       category.id: category.type for category in categories}})
 
     # Creating  an endpoint to handle GET requests for questions,
     # including pagination (every 10 questions).
@@ -92,7 +92,7 @@ def create_app(test_config=None):
                 'questions': current_questions,
                 'total_questions': len(questions.all())
             })
-        except:
+        except BaseException:
             abort(422)
     # Creating  an endpoint to POST a new question,
     # which will require the question and answer text,
@@ -219,17 +219,17 @@ def create_app(test_config=None):
                     'success': True,
                     'message': 'No more questions',
                     'totalQuestions': len(questions)
-                    })
+                })
 
             else:
                 current_question = random.choice(collected_questions)
                 previous_questions.append(current_question['id'])
 
                 return jsonify({
-                  'success': True,
-                  'question': current_question
+                    'success': True,
+                    'question': current_question
                 })
-        except:
+        except BaseException:
             abort(422)
     # Creating  error handlers for all expected errors
     # Including 404 and 422.
@@ -245,22 +245,23 @@ def create_app(test_config=None):
     @app.errorhandler(400)
     def bad_request(error):
         return jsonify({
-          'success': False,
-          'message': 'bad request',
-          'error': 400
+            'success': False,
+            'message': 'bad request',
+            'error': 400
         }), 400
-    
+
     @app.errorhandler(422)
     def unprocessable(error):
         return (
-         jsonify({"success": False, "error": 422, "message": "unprocessable"}),
-         422,
-         )
+            jsonify({"success": False, "error": 422, "message": "unprocessable"}),
+            422,
+        )
+
     @app.errorhandler(500)
     def internal_server_error(error):
         return jsonify({
             'success': False,
             'error': 500,
             'message': 'Internal Server Error'
-        }), 500    
+        }), 500
     return app
