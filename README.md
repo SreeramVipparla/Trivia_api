@@ -1,6 +1,9 @@
-# Backend - Full Stack Trivia API
+# Full Stack Trivia API
+# Overview
+<img src="https://user-images.githubusercontent.com/86887626/144296858-a6c73904-9824-4eb3-903c-db3945820fdf.jpg" width="1000" height="300">
 
-### Installing Dependencies for the Backend
+
+# Installing Dependencies for the Backend
 
 1. **Python 3.7** - Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
