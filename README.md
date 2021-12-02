@@ -1,9 +1,36 @@
-# Full Stack Trivia API
+# Trivia_Api Project
+
 # Overview
-<img src="https://user-images.githubusercontent.com/86887626/144296858-a6c73904-9824-4eb3-903c-db3945820fdf.jpg" width="1000" height="300">
 
+<img src="https://user-images.githubusercontent.com/86887626/139592214-6e8a1ff3-d694-4f83-bf6e-bf1490214402.jpg" width="1000" height="300">
 
-# Installing Dependencies for the Backend
+# Introduction
+
+In this project, I have created a website called Trivia_Api using Python, CSS and JavaScript. This website is a Trivia website that provides the user with some fun questions and executes the following on running the code-
+
+1. Display questions - both all questions and by category. Questions show the question, category and difficulty rating by default and can show/hide the answer.
+2. Delete questions.
+3. Add questions and require that they include question and answer text.
+4. Search for questions based on a text query string.
+5. Play the quiz game, randomizing either all questions or within a specific category.
+
+# Installing Dependencies
+
+## Front End
+
+1. **Installing Node and NPM**<br>
+   This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (the download includes NPM) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
+
+1. **Installing project dependencies**<br>
+   This project uses NPM to manage software dependencies. NPM Relies on the package.json file located in the `frontend` directory of this repository. After cloning, open your terminal and run:
+
+```bash
+npm install
+```
+
+> _tip_: **npm i** is shorthand for **npm install**
+
+## Back End
 
 1. **Python 3.7** - Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
@@ -33,7 +60,7 @@ With Postgres running, restore a database using the trivia.psql file provided. F
 psql trivia < trivia.psql
 ```
 
-### Running the server
+# Instructions to run the server
 
 From within the `./src` directory first ensure you are working using your created virtual environment.
 
@@ -45,57 +72,6 @@ flask run --reload
 
 The `--reload` flag will detect file changes and restart the server automatically.
 
-## ToDo Tasks
-
-These are the files you'd want to edit in the backend:
-
-1. _./backend/flaskr/`__init__.py`_
-2. _./backend/test_flaskr.py_
-
-One note before you delve into your tasks: for each endpoint, you are expected to define the endpoint and response data. The frontend will be a plentiful resource because it is set up to expect certain endpoints and response data formats already. You should feel free to specify endpoints in your own way; if you do so, make sure to update the frontend or you will get some unexpected behavior.
-
-1. Use Flask-CORS to enable cross-domain requests and set response headers.
-
-2. Create an endpoint to handle GET requests for questions, including pagination (every 10 questions). This endpoint should return a list of questions, number of total questions, current category, categories.
-
-3. Create an endpoint to handle GET requests for all available categories.
-
-4. Create an endpoint to DELETE question using a question ID.
-
-5. Create an endpoint to POST a new question, which will require the question and answer text, category, and difficulty score.
-
-6. Create a POST endpoint to get questions based on category.
-
-7. Create a POST endpoint to get questions based on a search term. It should return any questions for whom the search term is a substring of the question.
-
-8. Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions.
-
-9. Create error handlers for all expected errors including 400, 404, 422 and 500.
-
-## Review Comment to the Students
-
-```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code.
-
-Endpoints
-GET '/api/v1.0/categories'
-GET ...
-POST ...
-DELETE ...
-
-GET '/api/v1.0/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs.
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
-
-```
-
 ## Testing
 
 To run the tests, run
@@ -104,5 +80,5 @@ To run the tests, run
 dropdb trivia_test
 createdb trivia_test
 psql trivia_test < trivia.psql
-python3 test_flaskr.py
+python test_flaskr.py
 ```
